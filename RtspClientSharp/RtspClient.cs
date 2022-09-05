@@ -110,7 +110,7 @@ namespace RtspClientSharp
         }
 
         /// <summary>
-        /// Receive frames. 
+        /// Receive frames.
         /// Should be called after successful connection to endpoint or InvalidOperationException will be thrown
         /// </summary>
         /// <exception cref="OperationCanceledException"></exception>
@@ -141,8 +141,8 @@ namespace RtspClientSharp
                     {
                         _anyFrameReceived = false;
 
-                        Task result = await Task.WhenAny(receiveInternalTask,
-                            Task.Delay(ConnectionParameters.ReceiveTimeout, delayTaskToken)).ConfigureAwait(false);
+                        Task result = await Task.WhenAny(receiveInternalTask/**,
+                            Task.Delay(ConnectionParameters.ReceiveTimeout, delayTaskToken)*/).ConfigureAwait(false);
 
                         if (result == receiveInternalTask)
                         {
@@ -154,7 +154,7 @@ namespace RtspClientSharp
                         if (result.IsCanceled)
                         {
                             if (ConnectionParameters.CancelTimeout == TimeSpan.Zero ||
-                                await Task.WhenAny(receiveInternalTask, 
+                                await Task.WhenAny(receiveInternalTask,
                                     Task.Delay(ConnectionParameters.CancelTimeout, CancellationToken.None)) != receiveInternalTask)
                                 _rtspClientInternal.Dispose();
 

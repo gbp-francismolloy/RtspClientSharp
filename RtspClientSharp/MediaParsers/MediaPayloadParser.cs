@@ -6,7 +6,7 @@ using RtspClientSharp.RawFrames;
 
 namespace RtspClientSharp.MediaParsers
 {
-    abstract class MediaPayloadParser : IMediaPayloadParser
+    internal abstract class MediaPayloadParser : IMediaPayloadParser
     {
         private DateTime _baseTime = DateTime.MinValue;
 
@@ -34,24 +34,33 @@ namespace RtspClientSharp.MediaParsers
 
         public static IMediaPayloadParser CreateFrom(CodecInfo codecInfo)
         {
+            /**
             switch (codecInfo)
             {
                 case H264CodecInfo h264CodecInfo:
                     return new H264VideoPayloadParser(h264CodecInfo);
+
                 case MJPEGCodecInfo _:
                     return new MJPEGVideoPayloadParser();
+
                 case AACCodecInfo aacCodecInfo:
                     return new AACAudioPayloadParser(aacCodecInfo);
+
                 case G711CodecInfo g711CodecInfo:
                     return new G711AudioPayloadParser(g711CodecInfo);
+
                 case G726CodecInfo g726CodecInfo:
                     return new G726AudioPayloadParser(g726CodecInfo);
+
                 case PCMCodecInfo pcmCodecInfo:
                     return new PCMAudioPayloadParser(pcmCodecInfo);
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(codecInfo),
                         $"Unsupported codec: {codecInfo.GetType().Name}");
-            }
+            }*/
+
+            return new MetadataParser();
         }
     }
 }

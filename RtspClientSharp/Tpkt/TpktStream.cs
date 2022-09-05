@@ -7,9 +7,9 @@ using RtspClientSharp.Utils;
 
 namespace RtspClientSharp.Tpkt
 {
-    class TpktStream
+    internal class TpktStream
     {
-        private static readonly byte[] TpktHeaderIdArray = {TpktHeader.Id};
+        private static readonly byte[] TpktHeaderIdArray = { TpktHeader.Id };
 
         private byte[] _readBuffer = new byte[8 * 1024];
         private byte[] _writeBuffer = new byte[0];
@@ -67,6 +67,7 @@ namespace RtspClientSharp.Tpkt
             }
 
             var payloadSegment = new ArraySegment<byte>(_readBuffer, TpktHeader.Size, payloadSize);
+
             return new TpktPayload(channel, payloadSegment);
         }
 
@@ -82,9 +83,9 @@ namespace RtspClientSharp.Tpkt
                 _writeBuffer[0] = TpktHeader.Id;
             }
 
-            _writeBuffer[1] = (byte) channel;
-            _writeBuffer[2] = (byte) (payloadSegment.Count >> 8);
-            _writeBuffer[3] = (byte) payloadSegment.Count;
+            _writeBuffer[1] = (byte)channel;
+            _writeBuffer[2] = (byte)(payloadSegment.Count >> 8);
+            _writeBuffer[3] = (byte)payloadSegment.Count;
 
             Buffer.BlockCopy(payloadSegment.Array, payloadSegment.Offset, _writeBuffer, TpktHeader.Size,
                 payloadSegment.Count);

@@ -9,7 +9,7 @@ using RtspClientSharp.Utils;
 
 namespace RtspClientSharp.MediaParsers
 {
-    class H264Parser
+    internal class H264Parser
     {
         private enum FrameType
         {

@@ -7,14 +7,16 @@ using RtspClientSharp.Rtsp;
 
 namespace SimpleRtspClient
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
-            var serverUri = new Uri("rtsp://192.168.1.77:554/ucast/11");
-            var credentials = new NetworkCredential("admin", "123456");
+            var serverUri = new Uri("rtsp://192.168.1.26/profile1/media.smp/trackID=m");
+            //var serverUri = new Uri("rtsp://192.168.88.109:554/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif/trackID=4");
+            var credentials = new NetworkCredential("admin", "Pa$$w0rd");
 
             var connectionParameters = new ConnectionParameters(serverUri, credentials);
+            connectionParameters.ReceiveTimeout = new TimeSpan(0, 1, 0);
             var cancellationTokenSource = new CancellationTokenSource();
 
             Task connectTask = ConnectAsync(connectionParameters, cancellationTokenSource.Token);
